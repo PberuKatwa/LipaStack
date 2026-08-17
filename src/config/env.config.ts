@@ -6,11 +6,11 @@ import {
   type GlobalEnvironment,
   type PaystackEnvironment,
 } from './env.types';
-import { parseEnvZod } from './env.utils';
+import { parseWithSchema } from '../utils/zod/parse-schema';
 
 const getGlobalEnvironment: GlobalEnvironmentChecker = function (): string {
   const env = process.env.ENVIRONMENT;
-  if (!env) throw new Error(`No environmet was found`);
+  if (!env) throw new Error(`No environment was found`);
 
   return env;
 };
@@ -25,21 +25,21 @@ const getEnv: GetEnv = function (globalEnvCallback: GlobalEnvironmentChecker, ke
 };
 
 export const globalConfig = (): GlobalEnvironment =>
-  parseEnvZod(
+  parseWithSchema(
     globalEnvironmentSchema,
     {
       environment: getGlobalEnvironment(),
       port: getEnv(getGlobalEnvironment, 'PORT'),
     },
-    'global',
+    'Invalid global environment',
   );
 
 export const paystackConfig = (): PaystackEnvironment =>
-  parseEnvZod(
+  parseWithSchema(
     paystackEnvironmentSchema,
     {
       secretKey: getEnv(getGlobalEnvironment, 'PAYSTACK_SECRET_KEY'),
       publicKey: getEnv(getGlobalEnvironment, 'PAYSTACK_PUBLIC_KEY'),
     },
-    'paystack',
+    'Invalid paystack environment',
   );
