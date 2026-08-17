@@ -48,7 +48,7 @@ All environment variable handling lives in `src/config/`:
 
 - `src/config/env.types.ts` — zod schemas (`globalEnvironmentSchema`, `paystackEnvironmentSchema`) and types derived from them via `z.infer`.
 - `src/config/env.config.ts` — config factories (`globalConfig`, `paystackConfig`) that read raw `process.env` values and parse them through the schemas. This is the ONLY place `process.env` may be touched.
-- `src/config/env.utils.ts` — `parseEnvZod`, the shared `safeParse` wrapper that throws a readable error on invalid values.
+- `src/utils/zod/parse-schema.ts` — `parseWithSchema`, the shared `safeParse` wrapper that throws a readable error on invalid values (also used by `common/pipes/zod-validation.pipe.ts`).
 
 Rules (non-negotiable):
 
@@ -58,7 +58,7 @@ Rules (non-negotiable):
 To add a new environment variable:
 
 1. Add the field to the relevant zod schema in `src/config/env.types.ts` (or create a new schema and derive its type with `z.infer`).
-2. Wire the raw value in `src/config/env.config.ts` using `getEnv(...)` inside the corresponding `parseEnvZod(schema, {...}, label)` call. Remember that keys are suffixed with the environment (e.g. `PORT_DEVELOPMENT`), so pass the base key (e.g. `PORT`).
+2. Wire the raw value in `src/config/env.config.ts` using `getEnv(...)` inside the corresponding `parseWithSchema(schema, {...}, label)` call. Remember that keys are suffixed with the environment (e.g. `PORT_DEVELOPMENT`), so pass the base key (e.g. `PORT`).
 3. Add the variable (both `_DEVELOPMENT` and `_PRODUCTION` variants) to `.env.example` with a sensible default or empty value.
 4. The user must add the real values to their own `.env` file.
 
