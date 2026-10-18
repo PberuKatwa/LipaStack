@@ -72,4 +72,9 @@ export class PaystackService {
       paidAt: response.data.paid_at ?? null,
     };
   }
+
+
+  async handleWebhookEvent(): Promise<void>{
+
+  }
 }
