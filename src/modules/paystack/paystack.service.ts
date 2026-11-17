@@ -73,8 +73,5 @@ export class PaystackService {
     };
   }
 
-
-  async handleWebhookEvent(): Promise<void>{
-
-  }
+  async handleWebhookEvent(): Promise<void> {}
 }

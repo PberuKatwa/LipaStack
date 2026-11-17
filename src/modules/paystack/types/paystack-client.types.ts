@@ -53,7 +53,7 @@ export const paystackVerifyTransactionResponseSchema = z.object({
 });
 
 export type PaystackVerifyTransactionResponse = z.infer<
-typeof paystackVerifyTransactionResponseSchema
+  typeof paystackVerifyTransactionResponseSchema
 >;
 
 export const paystackWebhookEventSchema = z.object({

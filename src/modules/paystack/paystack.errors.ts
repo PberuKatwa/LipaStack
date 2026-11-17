@@ -34,7 +34,6 @@ export class PaystackWebhookError extends PaystackError {
   }
 }
 
-
 export function createPaystackError(statusCode: number, payload: unknown): PaystackError {
   const parsed = paystackErrorResponseSchema.safeParse(payload);
   const body: PaystackErrorResponse = parsed.success
