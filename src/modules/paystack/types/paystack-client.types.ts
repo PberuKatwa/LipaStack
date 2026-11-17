@@ -55,3 +55,19 @@ export const paystackVerifyTransactionResponseSchema = z.object({
 export type PaystackVerifyTransactionResponse = z.infer<
   typeof paystackVerifyTransactionResponseSchema
 >;
+
+export const paystackWebhookEventSchema = z.object({
+  event: z.string().min(1),
+  data: z.unknown(),
+});
+
+export type PaystackWebhookEvent = z.infer<typeof paystackWebhookEventSchema>;
+
+export const paystackChargeSuccessWebhookDataSchema = z.object({
+  reference: z.string().min(1),
+  status: z.string().min(1),
+});
+
+export type PaystackChargeSuccessWebhookData = z.infer<
+  typeof paystackChargeSuccessWebhookDataSchema
+>;
